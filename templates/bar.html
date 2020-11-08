@@ -61,17 +61,16 @@ margin: 20px;
         
         <div style="overflow:auto">
           
-           <div class="menu border_menu id1">
+          <div class="menu border_menu id1">
             <h2><a href="/bar" class="id_a">Bar</a></h2>
             <h2><a href="/line" class="id_a">Line</a></h2>
             <h2><a href="/pie" class="id_a">Pie</a></h2>
             <h2><a href="/scatter" class="id_a">Scatter</a><h2>
           </div>
         
-        
           <div class="main">
             <div class="container" style="position: relative; width:30vw;">
-                    <canvas id="myChart" width="350" height="350"></canvas>
+                    <canvas id="myChart" width="450" height="450"></canvas>
 
                   </div>
           </div>
@@ -85,22 +84,57 @@ margin: 20px;
 
    <script>
 
+      
 
-    var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'scatter',      // Define chart type
-    data: {
-    labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6', 'Month 7', 'Month 8', 'Month 9'],
-    datasets: [{
-        label: "Pie Chart",
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        data: {{values | tojson}}
-        }]
-      }      // Chart data
-  });
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',      // Define chart type
+        data: {
+        labels: {{labels | tojson}},
+        datasets: [{
+
+            label: "Sum of payment",
+            data: {{values | tojson}},
+           borderColor: "rgba(75,192,192,1)",
+            backgroundColor: "#8e5ea2",
+            }]
+          },
+          options: {
+            title:{
+              display: true,
+              fontSize: 12,
+              text: 'Custom Chart Title'
+
+            },
+            scales: {
+            yAxes: [
+              {
+              id: 'sumofpayment',
+              ticks: {
+                        beginAtZero: true,
+                    },
+               scaleLabel: {
+                        display: true,
+                        labelString: 'Sum of payment'
+                      }
+                },
+            ],
+            xAxes: [
+              {
+              id: 'year',
+              ticks: {
+                        beginAtZero: true,
+                    },
+               scaleLabel: {
+                        display: true,
+                        labelString: 'Year'
+                      }
+                },
+            ]}
+          }
+      });
 
 
 
-    </script>
+</script>
 </html>

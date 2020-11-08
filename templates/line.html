@@ -57,11 +57,12 @@ margin: 20px;
 
         <div class=" text-center text-white jumbotron"  style="background-color:rgb(48, 4, 37);margin-bottom:0">
           <h1>Banking</h1>
+          <p>Resize this responsive page to see the effect!</p>
         </div>
         
         <div style="overflow:auto">
           
-           <div class="menu border_menu id1">
+         <div class="menu border_menu id1">
             <h2><a href="/bar" class="id_a">Bar</a></h2>
             <h2><a href="/line" class="id_a">Line</a></h2>
             <h2><a href="/pie" class="id_a">Pie</a></h2>
@@ -71,7 +72,7 @@ margin: 20px;
         
           <div class="main">
             <div class="container" style="position: relative; width:30vw;">
-                    <canvas id="myChart" width="350" height="350"></canvas>
+                    <canvas id="myChart" width="450" height="450"></canvas>
 
                   </div>
           </div>
@@ -85,22 +86,49 @@ margin: 20px;
 
    <script>
 
+          var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'line',      // Define chart type
+        data: {
+        labels: {{labels | tojson}},
+        datasets: [{
+            label: "Sum of payment",
+            data: {{values | tojson}},
+            fill: true,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 5,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            }]
+          },
+          options: {
+              scales: {
+            yAxes: [
+              {
+              id: 'sumofpayment',
+              ticks: {
+                        beginAtZero: true,
+                    },
+               scaleLabel: {
+                        display: true,
+                        labelString: 'Sum of payment'
+                      }
+                },
+            ]}
+          }
+      });
 
-    var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
-    type: 'scatter',      // Define chart type
-    data: {
-    labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6', 'Month 7', 'Month 8', 'Month 9'],
-    datasets: [{
-        label: "Pie Chart",
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        data: {{values | tojson}}
-        }]
-      }      // Chart data
-  });
-
-
-
-    </script>
+</script>
 </html>
